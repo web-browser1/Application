@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: math-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: math-app
+  template:
+    metadata:
+      labels:
+        app: math-app
+    spec:
+      containers:
+      - name: math-app
+        image: math-app-image
+        ports:
+        - containerPort: 3000
+      - name: mysql
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        - name: MYSQL_DATABASE
+          value: math_calculations
